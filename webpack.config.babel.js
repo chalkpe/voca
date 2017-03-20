@@ -3,7 +3,7 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 module.exports = {
-    entry: './app/client/index.js',
+    entry: './app/index.js',
     output: {
         publicPath: '/dist/',
         filename: 'bundle.js',
