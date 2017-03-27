@@ -4,6 +4,7 @@
   "description": "한국디지털미디어고등학교 온라인 단어 학습 서비스",
   "main": "src/index.js",
   "scripts": {
+    "start": "babel-node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
@@ -42,8 +43,7 @@
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.4.0",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-stage-3": "^6.22.0",
+    "babel-preset-es2017": "^6.22.0",
     "babel-register": "^6.23.0",
     "cross-env": "^3.2.3",
     "css-loader": "^0.26.2",
