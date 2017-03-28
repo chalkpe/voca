@@ -1,5 +1,4 @@
 import compose from 'koa-compose';
-import bodyParser from 'koa-bodyparser';
 
 import rootRouter from './root';
 import authRouter from './auth';
@@ -11,7 +10,6 @@ const routes = [
     examRouter,
 ];
 
-export default () => {
-    let middlewares = routes.map(r => [r.routes(), r.allowedMethods()]);
-    return compose([bodyParser()].concat(...middlewares));
-}
+export default () => compose([].concat(
+    ...routes.map(r => [r.routes(), r.allowedMethods()])
+));
