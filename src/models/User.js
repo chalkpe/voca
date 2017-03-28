@@ -1,5 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
 const schema = mongoose.Schema({
-    //TODO
-});
+  // TODO
+})
+
+export default mongoose.model('User', schema)

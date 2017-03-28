@@ -1,18 +1,18 @@
-import 'whatwg-fetch';
-import 'bulma/css/bulma.css';
+import 'whatwg-fetch'
+import 'bulma/css/bulma.css'
 
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
-const Foo = { template: '<div>foo</div>' };
-const Bar = { template: '<div>bar</div>' };
+const Foo = { template: '<div>foo</div>' }
+const Bar = { template: '<div>bar</div>' }
 
 const routes = [
     { path: '/foo', component: Foo },
     { path: '/bar', component: Bar }
-];
+]
 
-const router = new VueRouter({ routes });
-const app = new Vue({ router }).$mount('#app');
+const router = new VueRouter({ routes })
+new Vue({ router }).$mount('#app')

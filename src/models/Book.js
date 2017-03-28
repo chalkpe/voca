@@ -1,8 +1,10 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
 const schema = mongoose.Schema({
-    id: { type: String, unique: true },
-    name: String, count: Number, image: String
-});
+  id: { type: String, unique: true },
+  name: String,
+  count: Number,
+  image: String
+})
 
-module.exports = mongoose.model('Book', schema);
+export default mongoose.model('Book', schema)

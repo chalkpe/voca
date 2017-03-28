@@ -1,8 +1,8 @@
-import Router from 'koa-router';
-const router = new Router();
+import Router from 'koa-router'
+const router = new Router()
 
 router.get('/', async (ctx, next) => {
-    ctx.body = 'Main!';
-});
+  ctx.body = 'Main!'
+})
 
-export default router;
+export default router
