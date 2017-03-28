@@ -1,4 +1,4 @@
-import logger from '../logger';
+import compose from 'koa-compose';
 import bodyParser from 'koa-bodyparser';
 
 import rootRouter from './root';
@@ -11,10 +11,7 @@ const routes = [
     examRouter,
 ];
 
-export default function router(app) {
-    routes.forEach(router => app
-        .use(logger())
-        .use(bodyParser())
-        .use(router.routes())
-        .use(router.allowedMethods()));
+export default () => {
+    let middlewares = routes.map(r => [r.routes(), r.allowedMethods()]);
+    return compose([bodyParser()].concat(...middlewares));
 }
