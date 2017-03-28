@@ -1,8 +1,8 @@
 import Router from 'koa-router';
-const router = new Router({ prefix: '/auth' });
+const router = new Router({ prefix: '/exam' });
 
 router.get('/', async (ctx, next) => {
-    ctx.body = 'Hello';
+    ctx.body = 'World';
 });
 
 export default router;
