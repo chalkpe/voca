@@ -4,12 +4,21 @@ import bodyParser from 'koa-bodyparser';
 import routes from './routes';
 import logger from './logger';
 
-const app = new Koa();
-const port = process.env.PORT || 8888;
+import mongoose from 'mongoose';
+mongoose.Promise = global.Promise;
 
-app
-    .use(logger())
-    .use(bodyParser())
-    .use(routes());
+mongoose
+    .connect('mongodb://localhost/voca')
+    .catch(::console.error).then(startApp);
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+function startApp() {
+    const app = new Koa();
+    const port = process.env.PORT || 8888;
+
+    app
+        .use(logger())
+        .use(bodyParser())
+        .use(routes());
+        
+    app.listen(port, () => console.log(`Listening on port ${port}`));
+}
