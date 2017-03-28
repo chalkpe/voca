@@ -1,5 +1,6 @@
 # d.voca
-한국디지털미디어고등학교 온라인 단어 학습 서비스
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+#### 한국디지털미디어고등학교 온라인 단어 학습 서비스
 
 ## 요구사항
 | 패키지 | 버전 |
