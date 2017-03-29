@@ -19,3 +19,5 @@ morgan.token('-status', (req, res) => {
 
 const logger = morgan(':-date :method HTTP/:http-version :-status :remote-addr :remote-user :url - :response-time ms')
 export default () => (ctx, next) => logger(ctx.req, ctx.res, next)
+
+// FIXME: Doesn't work with koa-send
