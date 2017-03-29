@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise
 
 mongoose
   .connect('mongodb://localhost/voca')
-  .catch(::console.error).then(startApp)
+  .then(startApp).catch(::console.error)
 
 function startApp () {
   const app = new Koa()
