@@ -1,55 +1,63 @@
 import path from 'path'
 import webpack from 'webpack'
+import HtmlPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
-module.exports = {
+const vueLoaders = {
+  html: 'pug-loader',
+  css: ExtractTextPlugin.extract({
+    use: 'css-loader',
+    fallback: 'vue-style-loader'
+  })
+}
+
+export default {
   entry: './app/index.js',
   output: {
-    publicPath: '/dist/',
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
+
+  plugins: [
+    new ExtractTextPlugin('bundle.css'),
+    new HtmlPlugin({
+      title: 'DIMI VOCA',
+      template: 'app/assets/index.pug'
+    })
+  ],
+
   module: {
     rules: [
       {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            html: 'pug-loader',
-            css: ExtractTextPlugin.extract({
-              use: 'css-loader',
-              fallback: 'vue-style-loader'
-            })
-          }
-        }
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          use: 'css-loader', fallback: 'style-loader'
+        })
+      }, {
+        test: /\.pug$/,
+        loader: 'pug-loader'
       }, {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/
       }, {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: 'css-loader',
-          fallback: 'style-loader'
-        })
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: { loaders: vueLoaders }
       }, {
         test: /\.(png|jpe?g|gif|svg|ttf|woff2?|eot)$/,
         loader: 'file-loader',
-        options: {
-          name: '[name].[ext]?[hash]'
-        }
+        options: { name: '[name].[ext]?[hash]' }
       }
     ]
   },
-  plugins: [
-    new ExtractTextPlugin('bundle.css')
-  ],
+
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.common.js'
     }
   },
+
   devServer: {
     host: '0.0.0.0',
     historyApiFallback: true

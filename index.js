@@ -1,11 +1,9 @@
-import path from 'path'
-
 import Koa from 'koa'
 import serve from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 
 import routes from './routes'
-// import logger from './logger'
+// import logger from './util/logger'
 
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
@@ -22,7 +20,7 @@ function startApp () {
     // .use(logger())
     .use(bodyParser())
     .use(routes())
-    .use(serve(path.resolve(__dirname, '..')))
+    .use(serve('dist'))
 
   app.listen(port, () => console.log(`Listening on port ${port}`))
 }
