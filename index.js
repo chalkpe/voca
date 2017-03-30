@@ -3,7 +3,7 @@ import serve from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 
 import routes from './routes'
-// import logger from './util/logger'
+import logger from './util/logger'
 
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
@@ -17,7 +17,7 @@ function startApp () {
   const port = process.env.PORT || 8888
 
   app
-    // .use(logger())
+    .use(logger())
     .use(bodyParser())
     .use(routes())
     .use(serve('dist'))

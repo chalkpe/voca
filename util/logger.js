@@ -1,6 +1,5 @@
 import chalk from 'chalk'
 import moment from 'moment'
-import morgan from 'morgan'
 
 const colours = {
   5: 'red',
@@ -11,13 +10,33 @@ const colours = {
   0: 'yellow'
 }
 
-morgan.token('-date', () => moment().format('YYYY-MM-DD[T]HH:mm:ss.SSSZZ'))
-morgan.token('-status', (req, res) => {
-  const status = morgan.status(req, res)
-  return chalk[colours[status / 100 | 0] || 'reset'](status)
-})
+const method = ({ method }) => method
+const url = ({ originalUrl }) => originalUrl
+const remoteAddress = ({ request }) => request.ip
+const duration = (start) => () => `- ${new Date() - start} ms`
+const time = () => moment().format('YYYY-MM-DD[T]HH:mm:ss.SSSZZ')
+const status = ({ status }) => chalk[colours[status / 100 | 0] || 'reset'](status)
+const httpVersion = ({ req }) => `HTTP/${req.httpVersionMajor}.${req.httpVersionMinor}`
 
-const logger = morgan(':-date :method HTTP/:http-version :-status :remote-addr :remote-user :url - :response-time ms')
-export default () => (ctx, next) => logger(ctx.req, ctx.res, next)
+function log (ctx, start) {
+  const tokens = [
+    time,
+    method,
+    httpVersion,
+    status,
+    remoteAddress,
+    url,
+    duration(start)
+  ]
 
-// FIXME: Doesn't work with koa-send
+  console.log(tokens.map(x => x(ctx)).join(' '))
+}
+
+export default () => async (ctx, next) => {
+  const start = new Date()
+  await next()
+
+  ctx.res
+    .once('close', () => log(ctx, start))
+    .once('finish', () => log(ctx, start))
+}
