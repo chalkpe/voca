@@ -1,3 +1,5 @@
+import path from 'path'
+
 import Koa from 'koa'
 import serve from 'koa-static'
 import bodyParser from 'koa-bodyparser'
@@ -14,13 +16,14 @@ mongoose
 
 function startApp () {
   const app = new Koa()
-  const port = process.env.PORT || 8888
+  const port = process.env.PORT || 8080
+  const dist = path.resolve(__dirname, '..', 'dist')
 
   app
     .use(logger())
     .use(bodyParser())
     .use(routes())
-    .use(serve('dist'))
+    .use(serve(dist))
 
-  app.listen(port, () => console.log(`Listening on port ${port}`))
+  app.listen(port, () => console.log(`Listening on port ${port} ${dist}`))
 }

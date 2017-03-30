@@ -2,7 +2,7 @@
   "name": "d.voca",
   "version": "1.0.0",
   "description": "한국디지털미디어고등학교 온라인 단어 학습 서비스",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "babel-node .",
     "test": "standard && npm run build && npm run start",

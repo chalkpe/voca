@@ -1,9 +1,8 @@
 <template lang="pug">
-  h1 Hello?
+  h1 Learn!
 </template>
 
 <script>
   export default {
-    // TODO: Implement component
   }
 </script>

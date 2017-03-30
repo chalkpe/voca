@@ -1,19 +1,28 @@
 import 'whatwg-fetch'
 import 'bulma/css/bulma.css'
+import 'noto-sans-kr'
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import App from './App.vue'
+import Home from './routes/Home.vue'
+import Learn from './routes/Learn.vue'
+
+import Navigation from './components/Navigation.vue'
 
 Vue.use(VueRouter)
 
-const Bar = { template: '<div>bar</div>' }
+const router = new VueRouter({
+  routes: [
+    { path: '/home', component: Home },
+    { path: '/learn', component: Learn }
+  ]
+})
 
-const routes = [
-  { path: '/app', component: App },
-  { path: '/bar', component: Bar }
-]
+const vm = new Vue({
+  router,
+  el: '#app',
+  components: { Navigation }
+})
 
-const router = new VueRouter({ routes })
-new Vue({ router }).$mount('#app')
+console.log(vm)
