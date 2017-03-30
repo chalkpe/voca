@@ -1,6 +1,8 @@
-# d.voca
-[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-#### 한국디지털미디어고등학교 온라인 단어 학습 서비스
+# voca
+
+[![license](https://img.shields.io/github/license/ChalkPE/voca.svg)](LICENSE)
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)  
+한국디지털미디어고등학교 온라인 단어 학습 서비스
 
 ## 요구사항
 | 패키지 | 버전 |
@@ -11,7 +13,7 @@
 
 ## 설치
 ```bash
-$ git clone https://github.com/ChalkPE/d.voca.git
+$ git clone https://github.com/ChalkPE/voca.git
 $ cd d.voca && npm i && npm run build && npm run start
 ```
 
