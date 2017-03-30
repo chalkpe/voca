@@ -3,7 +3,7 @@
     .nav-left
       router-link.nav-item.is-tab.is-hidden-mobile(
         v-for='link in links', :key='link.url',
-        active-class='is-active', :to='link.url') {{ link.name }}
+        exact, active-class='is-active', :to='link.url') {{ link.name }}
 </template>
 
 <script>
