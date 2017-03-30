@@ -8,11 +8,13 @@ const vueLoaders = {
   css: ExtractTextPlugin.extract({
     use: 'css-loader',
     fallback: 'vue-style-loader'
-  })
+  }),
+  scss: 'vue-style-loader!css-loader!sass-loader',
+  sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
 }
 
 export default {
-  entry: './app/index.js',
+  entry: './app/app.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
@@ -22,7 +24,7 @@ export default {
     new ExtractTextPlugin('bundle.css'),
     new HtmlPlugin({
       title: 'DIMI VOCA',
-      template: 'app/index.pug'
+      template: 'app/assets/index.pug'
     })
   ],
 
@@ -32,6 +34,11 @@ export default {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           use: 'css-loader', fallback: 'style-loader'
+        })
+      }, {
+        test: /\.s[a|c]ss$/,
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader', 'sass-loader'], fallback: 'style-loader'
         })
       }, {
         test: /\.pug$/,
