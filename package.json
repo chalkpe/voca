@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://ChalkPE@github.com/ChalkPE/d.voca.git"
+    "url": "git+https://github.com/ChalkPE/voca.git"
   },
   "keywords": [
     "voca",
@@ -20,9 +20,9 @@
   "author": "ChalkPE <chalk@chalk.pe>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ChalkPE/d.voca/issues"
+    "url": "https://github.com/ChalkPE/voca/issues"
   },
-  "homepage": "https://github.com/ChalkPE/d.voca#readme",
+  "homepage": "https://github.com/ChalkPE/voca#readme",
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "bulma": "^0.3.2",
@@ -38,6 +38,7 @@
     "moment": "^2.17.1",
     "mongoose": "^4.8.6",
     "noto-sans-kr": "^0.1.1",
+    "typeface-nanum-barun-gothic": "^1.0.0",
     "vue": "^2.2.1",
     "vue-router": "^2.3.0",
     "whatwg-fetch": "^2.0.3"
