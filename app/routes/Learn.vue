@@ -1,10 +1,8 @@
 <template lang="pug">
-  .box
-    .card(v-for='book in books')
-      .card-image
-        figure.image
-          img(src='book.image')
-      .card-content: .content {{ book.name }}
+  .columns
+    .column.is-one-quarter(v-for='book in books')
+      img(:src='book.image')
+      span {{ book.name }}
 </template>
 
 <script>
