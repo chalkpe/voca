@@ -4,8 +4,8 @@
   "description": "한국디지털미디어고등학교 온라인 단어 학습 서비스",
   "main": "src/index.js",
   "scripts": {
-    "start": "babel-node .",
-    "test": "standard && npm run build && npm run start",
+    "start": "nodemon --exec babel-node .",
+    "test": "standard && npm run build && npm start",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
@@ -58,6 +58,7 @@
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.28.0",
     "node-sass": "^4.5.2",
+    "nodemon": "^1.11.0",
     "pug": "^2.0.0-beta11",
     "pug-loader": "^2.3.0",
     "sass-loader": "^6.0.3",

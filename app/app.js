@@ -1,3 +1,6 @@
+import 'whatwg-fetch'
+import 'babel-polyfill'
+
 import Vue from 'vue'
 import App from './App.vue'
 import routes from './routes'

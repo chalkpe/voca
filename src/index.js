@@ -24,11 +24,11 @@ function startApp () {
   const dist = path.join(__dirname, '..', 'dist')
 
   app
+    .use(logger())
     .use(conditional())
     .use(etag())
     .use(bodyParser())
     .use(routes())
-    .use(logger())
     .use(serve(dist, { maxage: 1000 * 60 * 30 }))
 
   app.listen(port, () => console.log(`Listening on port ${port}`))
