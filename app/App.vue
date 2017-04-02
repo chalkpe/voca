@@ -7,6 +7,7 @@
 </template>
 
 <script>
+  import 'lato-webfont'
   import 'typeface-nanum-barun-gothic'
   import 'font-awesome/scss/font-awesome.scss'
 
@@ -19,8 +20,9 @@
 </script>
 
 <style lang="sass">
-  $family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", "Nanum Barun Gothic", sans-serif
-  @import "~bulma"
+  $family-sans-serif: "Lato", "Nanum Barun Gothic", sans-serif
+
+  @import "~bulma/bulma.sass"
 
   #app
     display: flex
@@ -29,4 +31,5 @@
 
   section
     flex: 1 0 auto
+
 </style>
