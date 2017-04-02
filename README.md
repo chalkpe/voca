@@ -14,7 +14,7 @@
 ## 설치
 ```bash
 $ git clone https://github.com/ChalkPE/voca.git
-$ cd d.voca && npm i && npm run build && npm run start
+$ cd voca && npm install && npm run build && npm run start
 ```
 
 ## 라이선스
