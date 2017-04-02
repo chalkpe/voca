@@ -24,7 +24,7 @@ export default {
     new ExtractTextPlugin('bundle.css'),
     new HtmlPlugin({
       title: 'DIMI VOCA',
-      template: 'app/assets/index.pug'
+      template: 'app/app.pug'
     })
   ],
 
