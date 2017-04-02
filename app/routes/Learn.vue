@@ -13,7 +13,7 @@
       books: []
     }),
 
-    async created(){
+    async created () {
       this.books = await fetch('learn').then(res => res.json())
     }
   }
