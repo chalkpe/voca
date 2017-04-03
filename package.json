@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint . --ext .js,.vue",
     "start": "nodemon --exec babel-node .",
-    "test": "npm run lint && npm run build && npm start",
+    "test": "npm run lint && npm run build",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
