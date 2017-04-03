@@ -38,3 +38,6 @@ jspm_packages
 
 # Webpack build destination
 dist
+
+# Config files
+config.js
