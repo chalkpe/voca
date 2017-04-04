@@ -7,8 +7,7 @@ router.post('/', async (ctx) => {
   try {
     ctx.body = await User.authenticate(ctx.request.body)
   } catch (err) {
-    if (!err.response) ctx.throw(500, err)
-    else ctx.throw(401, err.response.data)
+    ctx.throw(err.status, err.message)
   }
 })
 

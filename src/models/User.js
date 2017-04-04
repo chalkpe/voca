@@ -1,20 +1,16 @@
-import axios from 'axios'
 import crc32 from 'crc-32'
 import sha256 from 'sha256'
 import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose'
 
+import axios from '../axios'
 import * as config from '../config'
 
 function error (message) {
-  const err = new Error(message)
-  message.response = { data: { message } }
-  return err
-}
+  let err = new Error(message)
+  err.status = 401
 
-const auth = {
-  username: config.DIMIGO_API_ID,
-  password: config.DIMIGO_API_PW
+  return err
 }
 
 const uri = {
@@ -39,15 +35,18 @@ schema.statics.hash = (password) => {
 }
 
 schema.statics.authenticate = async function ({ username, password }) {
+  if (!username) throw error('username is undefined')
+  if (!password) throw error('password is undefined')
+
   const params = { username, password: this.hash(password) }
-  const { data: userData } = await axios.get(uri.auth(), { auth, params })
+  const { data: userData } = await axios.get(uri.auth(), { params })
   const { id, name, sso_token: token, user_type: userType } = userData
 
-  if (userType !== 'S') throw error('For students only')
+  if (userType !== 'S') throw error('not a student')
   let user = await this.findOne({ username })
 
   if (!user) {
-    const { data } = await axios.get(uri.student(username), { auth })
+    const { data } = await axios.get(uri.student(username))
     user = new this({ id, username, token, name, serial: data.serial })
 
     await user.save()
