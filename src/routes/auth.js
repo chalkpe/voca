@@ -1,8 +1,7 @@
 import axios from 'axios'
-import crc32 from 'crc-32'
-import sha256 from 'sha256'
-
 import Router from 'koa-router'
+
+import hash from '../util/hash'
 import * as config from '../config'
 
 const auth = {
@@ -14,14 +13,11 @@ const router = new Router({ prefix: '/auth' })
 
 router.post('/', async (ctx) => {
   const { username, password } = ctx.request.body
-  const uri = config.DIMIGO_API_HOST + '/v1/users/identify'
-
-  const crc = '0000000000' + (crc32.str(password) >>> 0)
-  const hash = '@' + sha256(password + crc.substr(-10, 10))
+  const uri = config.DIMIGO_API_HOST + '/users/identify'
 
   try {
     const { data } = await axios.get(uri, {
-      auth, params: { username, password: hash }
+      auth, params: { username, password: hash(password) }
     })
 
     ctx.body = data
