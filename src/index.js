@@ -7,13 +7,14 @@ import bodyParser from 'koa-bodyparser'
 import conditional from 'koa-conditional-get'
 
 import routes from './routes'
-import logger from './util/logger'
+import logger from './logger'
+import * as config from './config'
 
 import mongoose from 'mongoose'
 mongoose.Promise = global.Promise
 
 mongoose
-  .connect('mongodb://localhost/voca')
+  .connect(config.MONGODB_URI)
   .then(startApp).catch(::console.error)
 
 function startApp () {
