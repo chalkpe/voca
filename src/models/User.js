@@ -1,9 +1,16 @@
 import axios from 'axios'
 import crc32 from 'crc-32'
 import sha256 from 'sha256'
+import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose'
 
 import * as config from '../config'
+
+function error (message) {
+  const err = new Error(message)
+  message.response = { data: { message } }
+  return err
+}
 
 const auth = {
   username: config.DIMIGO_API_ID,
@@ -11,15 +18,17 @@ const auth = {
 }
 
 const uri = {
-  auth: config.DIMIGO_API_HOST + '/users/identify'
+  auth: () => `${config.DIMIGO_API_HOST}/users/identify`,
+  student: (username) => `${config.DIMIGO_API_HOST}/user-students/${username}`
 }
 
 const schema = mongoose.Schema({
+  id: { type: Number, unique: true },
   username: { type: String, unique: true },
 
   token: String,
   name: String,
-  email: String
+  serial: String
 })
 
 schema.statics.hash = (password) => {
@@ -30,11 +39,24 @@ schema.statics.hash = (password) => {
 }
 
 schema.statics.authenticate = async function ({ username, password }) {
-  const { data } = await axios.get(uri.auth, {
-    auth, params: { username, password: this.hash(password) }
-  })
+  const params = { username, password: this.hash(password) }
+  const { data: userData } = await axios.get(uri.auth(), { auth, params })
+  const { id, name, sso_token: token, user_type: userType } = userData
 
-  return data
+  if (userType !== 'S') throw error('For students only')
+  let user = await this.findOne({ username })
+
+  if (!user) {
+    const { data } = await axios.get(uri.student(username), { auth })
+    user = new this({ id, username, token, name, serial: data.serial })
+
+    await user.save()
+  }
+
+  user.token = token
+  await user.save()
+
+  return await jwt.sign({ username, serial: user.serial }, config.JWT_SECRET)
 }
 
 export default mongoose.model('User', schema)
