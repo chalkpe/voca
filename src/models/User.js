@@ -3,19 +3,27 @@ import sha256 from 'sha256'
 import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose'
 
-import axios from '../axios'
+import axios from 'axios'
 import * as config from '../config'
 
-function error (message) {
-  let err = new Error(message)
-  err.status = 401
-
-  return err
+const auth = {
+  username: config.DIMIGO_API_ID,
+  password: config.DIMIGO_API_PW
 }
 
 const uri = {
   auth: () => `${config.DIMIGO_API_HOST}/users/identify`,
   student: (username) => `${config.DIMIGO_API_HOST}/user-students/${username}`
+}
+
+async function fetch (url, params = {}) {
+  try {
+    // HTTP basic authentication
+    return await axios.get(url, { auth, params })
+  } catch (err) {
+    let { message } = err.response ? err.response.data : err
+    throw new Error(message) // set proper error message and rethrow
+  }
 }
 
 const schema = mongoose.Schema({
@@ -35,18 +43,18 @@ schema.statics.hash = (password) => {
 }
 
 schema.statics.authenticate = async function ({ username, password }) {
-  if (!username) throw error('username is undefined')
-  if (!password) throw error('password is undefined')
+  if (!username) throw new Error('username is undefined')
+  if (!password) throw new Error('password is undefined')
 
   const params = { username, password: this.hash(password) }
-  const { data: userData } = await axios.get(uri.auth(), { params })
+  const { data: userData } = await fetch(uri.auth(), params)
   const { id, name, sso_token: token, user_type: userType } = userData
 
-  if (userType !== 'S') throw error('not a student')
+  if (userType !== 'S') throw new Error('not a student')
   let user = await this.findOne({ username })
 
   if (!user) {
-    const { data } = await axios.get(uri.student(username))
+    const { data } = await fetch(uri.student(username))
     user = new this({ id, username, token, name, serial: data.serial })
 
     await user.save()
