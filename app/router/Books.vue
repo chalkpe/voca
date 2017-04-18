@@ -6,15 +6,14 @@
 </template>
 
 <script>
-  export default {
-    name: 'learn',
+  import axios from 'axios'
 
-    data: () => ({
-      books: []
-    }),
+  export default {
+    name: 'books',
+    data: () => ({ books: [] }),
 
     async created () {
-      this.books = await fetch('learn').then(res => res.json())
+      this.books = (await axios.get('/learn')).data
     }
   }
 </script>
