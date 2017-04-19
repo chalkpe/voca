@@ -4,10 +4,9 @@
       h1.title {{ book.name }}
       h2.subtitle {{ book.count }} days
     br
-
-    .tags
-      span.tag.is-large(v-for='n in book.count', @click='toggle(n)',
-        :class='list.includes(n) && "is-primary"') {{ '00'.concat(n).slice(-2) }}
+    #days
+      a.button.is-large.is-primary(v-for='n in book.count', @click='toggle(n)',
+        :class='list.includes(n) || `is-outlined`') {{ pad(n) }}
 </template>
 
 <script>
@@ -22,6 +21,8 @@
     },
 
     methods: {
+      pad: (n) => '00'.concat(n).slice(-2),
+
       toggle (day) {
         const index = this.list.indexOf(day)
 
@@ -33,8 +34,9 @@
 </script>
 
 <style lang="sass" scoped>
-  span.tag
-    margin: 0.5rem
-    padding: 2rem 1.6rem
-    transition: all 0.3s ease
+  #days .button
+    width: 4.4rem
+    height: 4rem
+    margin: 0 1rem 1rem 0
+    transition: all 0.25s ease
 </style>
