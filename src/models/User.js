@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import mongoose from 'mongoose'
 
 import axios from 'axios'
-import * as config from '../config'
+import * as config from '../../config'
 
 const auth = {
   username: config.DIMIGO_API_ID,

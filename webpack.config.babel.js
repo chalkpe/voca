@@ -3,6 +3,8 @@ import webpack from 'webpack'
 import HtmlPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
+import * as config from './config'
+
 const vueLoaders = {
   html: 'pug-loader',
   css: ExtractTextPlugin.extract({
@@ -17,13 +19,13 @@ export default {
   entry: './app/app.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, ...config.DIST_PATH)
   },
 
   plugins: [
     new ExtractTextPlugin('bundle.css'),
     new HtmlPlugin({
-      title: 'DIMI VOCA',
+      title: config.TITLE,
       template: 'app/app.pug'
     })
   ],
@@ -59,20 +61,17 @@ export default {
     ]
   },
 
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.common.js'
-    }
-  },
+  performance: { hints: false },
+  resolve: { alias: { 'vue$': 'vue/dist/vue.common.js' } },
 
+  devtool: '#eval-source-map',
   devServer: {
+    hot: true,
+    port: 8888,
     host: '0.0.0.0',
-    historyApiFallback: true
-  },
-  performance: {
-    hints: false
-  },
-  devtool: '#eval-source-map'
+    historyApiFallback: true,
+    proxy: { '**': `http://localhost:${config.PORT}` }
+  }
 }
 
 if (process.env.NODE_ENV === 'production') {

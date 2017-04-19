@@ -8,7 +8,7 @@ import conditional from 'koa-conditional-get'
 
 import routes from './routes'
 import logger from './logger'
-import * as config from './config'
+import * as config from '../config'
 
 import mongoose from 'mongoose'
 mongoose.Promise = global.Promise
@@ -21,8 +21,8 @@ function startApp () {
   console.log(`Connected to database ${mongoose.connection.name}`)
 
   const app = new Koa()
-  const port = process.env.PORT || 8080
-  const dist = path.join(__dirname, '..', 'dist')
+  const port = process.env.PORT || config.PORT
+  const dist = path.join(__dirname, '..', ...config.DIST_PATH)
 
   app
     .use(logger())
