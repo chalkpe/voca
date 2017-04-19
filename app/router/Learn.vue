@@ -3,10 +3,11 @@
     .heading
       h1.title {{ book.name }}
       h2.subtitle {{ book.count }} days
-    br
-    #days
-      a.button.is-large.is-primary(v-for='n in book.count', @click='toggle(n)',
-        :class='list.includes(n) || `is-outlined`') {{ pad(n) }}
+
+    .has-text-centered
+      a.day.button.is-large.is-primary(v-for='n in book.count', @click='toggle(n)',
+        :class='list.includes(n) || `is-outlined`') {{ '00'.concat(n).slice(-2) }}
+      span.day.placeholder(v-for='n in 15')
 </template>
 
 <script>
@@ -21,22 +22,25 @@
     },
 
     methods: {
-      pad: (n) => '00'.concat(n).slice(-2),
-
-      toggle (day) {
-        const index = this.list.indexOf(day)
-
-        if (index < 0) this.list.push(day)
-        else this.list.splice(index, 1)
+      toggle (n) {
+        const i = this.list.indexOf(n)
+        if (i < 0) this.list.push(n)
+        else this.list.splice(i, 1)
       }
     }
   }
 </script>
 
 <style lang="sass" scoped>
-  #days .button
+  .has-text-centered
+    margin-top: 2rem
+
+  .day
     width: 4.4rem
-    height: 4rem
-    margin: 0 1rem 1rem 0
+    margin: 0.5rem
+    display: inline-flex
     transition: all 0.25s ease
+
+    &.button
+      height: 4rem
 </style>
