@@ -40,4 +40,4 @@ jspm_packages
 dist
 
 # Config files
-config.js
+secret.js

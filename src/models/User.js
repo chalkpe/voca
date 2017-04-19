@@ -5,10 +5,11 @@ import mongoose from 'mongoose'
 
 import axios from 'axios'
 import * as config from '../../config'
+import * as secret from '../../config/secret'
 
 const auth = {
-  username: config.DIMIGO_API_ID,
-  password: config.DIMIGO_API_PW
+  username: secret.DIMIGO_API_ID,
+  password: secret.DIMIGO_API_PW
 }
 
 const uri = {
@@ -63,7 +64,7 @@ schema.statics.authenticate = async function ({ username, password }) {
   user.token = token
   await user.save()
 
-  return await jwt.sign({ username, serial: user.serial }, config.JWT_SECRET)
+  return await jwt.sign({ username, serial: user.serial }, secret.JWT_SECRET)
 }
 
 export default mongoose.model('User', schema)
