@@ -2,7 +2,7 @@
   #learn.has-text-centered
     .heading
       h1.title {{ book.name }}
-      h2.subtitle {{ book.count }} days / {{ book.totalWords }} words
+      h2.subtitle {{ num(book.count) }} days / {{ num(book.totalWords) }} words
     a.day.button.is-large.is-primary(v-for='n in book.count', @click='toggle(n)',
       :class='list.includes(n) || `is-outlined`') {{ '00'.concat(n).slice(-2) }}
     span.day.placeholder(v-for='n in 20')
@@ -21,6 +21,7 @@
     },
 
     methods: {
+      num: (n) => Number(n).toLocaleString({ useGrouping: true }),
       toggle (n) {
         const i = this.list.indexOf(n);
         (i < 0) ? this.list.push(n) : this.list.splice(i, 1)
