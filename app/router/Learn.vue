@@ -3,9 +3,9 @@
     .heading
       h1.title {{ book.name }}
       h2.subtitle {{ num(book.count) }} days / {{ num(book.totalWords) }} words
-    a.day.button.is-large.is-primary(v-for='n in book.count', @click='toggle(n)',
-      :class='list.includes(n) || `is-outlined`') {{ '00'.concat(n).slice(-2) }}
-    span.day.placeholder(v-for='n in 20')
+    a.button.is-large.is-outlined(v-for='n in book.count', @click='toggle(n)',
+      :class='list.includes(n) && `is-primary`') {{ '00'.concat(n).slice(-2) }}
+    a.button.placeholder(v-for='n in 16')
 </template>
 
 <script>
@@ -32,14 +32,17 @@
 
 <style lang="sass" scoped>
   .heading
-    margin-bottom: 1.5rem
+    margin-bottom: 1.75rem
 
-  .day
+  .button
     width: 4rem
     margin: 0.5rem
-    display: inline-flex
     transition: all 0.25s ease
 
-    &.button
+    &.is-large
       height: 3.7rem
+
+    &.placeholder
+      height: 0
+      visibility: hidden
 </style>
