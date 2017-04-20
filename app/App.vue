@@ -7,6 +7,7 @@
 </template>
 
 <script>
+  import './app.sass'
   import 'lato-webfont'
   import 'typeface-nanum-barun-gothic'
   import 'font-awesome/scss/font-awesome.scss'
@@ -19,16 +20,7 @@
   }
 </script>
 
-<style lang="sass">
-  $primary: #ff9800
-  $family-sans-serif: "Lato", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", "Nanum Barun Gothic", sans-serif
-  $family-monospace: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace
-
-  @import "~bulma/bulma.sass"
-
-  *:focus
-    outline: none
-
+<style lang="sass" scoped>
   #app
     display: flex
     min-height: 100vh
@@ -36,5 +28,4 @@
 
   section
     flex: 1 0 auto
-
 </style>
