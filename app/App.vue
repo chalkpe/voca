@@ -20,9 +20,14 @@
 </script>
 
 <style lang="sass">
-  $family-sans-serif: "Lato", "Nanum Barun Gothic", sans-serif
+  $primary: #ff9800
+  $family-sans-serif: "Lato", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", "Nanum Barun Gothic", sans-serif
+  $family-monospace: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace
 
   @import "~bulma/bulma.sass"
+
+  *:focus
+    outline: none
 
   #app
     display: flex
