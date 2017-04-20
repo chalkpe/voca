@@ -18,7 +18,7 @@
         a.button.is-large.placeholder(v-for='n in 16')
 
     #learning(v-show='started')
-      progress.progress(value='0', :max='words.length') {{ 0 / words.length }}%
+      progress.progress(:value='wordIndex', :max='words.length') {{ wordIndex / words.length }}%
 
       .heading
         h1.title {{ word.id }}
@@ -27,9 +27,9 @@
           span.day on day {{ word.day }}
 
         nav.level.is-mobile
-          .level-item.is-narrow: a.button &lt;
-          .level-item.is-narrow: a.button.is-primary Show
-          .level-item.is-narrow: a.button &gt;
+          .level-item.is-narrow: a.button(@click='previousWord') &lt;
+          .level-item.is-narrow: a.button.is-primary(@click='toggleMeaning') Show
+          .level-item.is-narrow: a.button(@click='nextWord') &gt;
 </template>
 
 <script>
@@ -46,14 +46,19 @@
       list: [],
       started: false,
 
-      word: {},
       words: [],
-      wordIterator: null
+      wordIndex: 0
     }),
 
     async created () {
       const book = this.$route.params.book
       this.book = (await axios.get(`/learn/${book}`)).data
+    },
+
+    computed: {
+      word () {
+        return this.words[this.wordIndex] || {}
+      }
     },
 
     methods: {
@@ -85,10 +90,19 @@
           .map(({ data }) => data)
           .map(({ id, words }) => words.map(word => ({ day: id, ...word }))))
 
-        this.wordIterator = this.words[Symbol.iterator]()
-        this.word = this.wordIterator.next().value
-
         this.started = true
+      },
+
+      previousWord () {
+        if (--this.wordIndex < 0) this.wordIndex = 0
+      },
+
+      nextWord () {
+        if (++this.wordIndex >= this.word.length) this.wordIndex = this.word.length - 1
+      },
+
+      toggleMeaning () {
+        // TODO: show/hide meaning
       }
     }
   }
@@ -120,14 +134,13 @@
       visibility: hidden
 
   #learning
-    .subtitle
-      span
-        &.icon
-          width: unset
-          height: unset
-          font-size: unset
-          line-height: 1.45rem
+    .subtitle span
+      &.icon
+        width: unset
+        height: unset
+        font-size: unset
+        line-height: 1.45rem
 
-        &.day
-          margin-left: 0.8rem
+      &.day
+        margin-left: 0.8rem
 </style>
