@@ -11,8 +11,14 @@ const vueLoaders = {
     use: 'css-loader',
     fallback: 'vue-style-loader'
   }),
-  scss: 'vue-style-loader!css-loader!sass-loader',
-  sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+  scss: ExtractTextPlugin.extract({
+    fallback: 'vue-style-loader',
+    use: ['css-loader', 'sass-loader']
+  }),
+  sass: ExtractTextPlugin.extract({
+    fallback: 'vue-style-loader',
+    use: ['css-loader', 'sass-loader?indentedSyntax']
+  })
 }
 
 export default {
