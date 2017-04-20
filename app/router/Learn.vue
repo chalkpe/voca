@@ -1,21 +1,35 @@
 <template lang="pug">
   #learn.has-text-centered
-    .heading
+    #bookTitle.heading
       h1.title {{ book.name }}
       h2.subtitle {{ num(book.count) }} days / {{ num(book.totalWords) }} words
+        span(v-show='started') &nbsp;/ learning {{ this.list.join(', ') }}
 
-    nav.level.is-mobile(v-show='!started')
-      .level-item.is-narrow: a.button(@click='toggleAll')
-        | {{ list.length === book.count ? 'de' : '' }}select all
-      .level-item.is-narrow: a.button(@click='toggleLucky') I'm feeling lucky
-      .level-item.is-narrow: a.button.is-primary(@click='start') start
+    #choose(v-show='!started')
+      nav.level.is-mobile
+        .level-item.is-narrow: a.button(@click='toggleAll')
+          | {{ list.length === book.count ? 'de' : '' }}select all
+        .level-item.is-narrow: a.button(@click='toggleLucky') I'm feeling lucky
+        .level-item.is-narrow: a.button.is-primary(:disabled='!this.list.length', @click='start') start
 
-    #days(v-show='!started')
-      a.button.is-large.is-outlined(v-for='n in book.count', @click='toggle(n)',
-        :class='list.includes(n) && `is-primary`') {{ '00'.concat(n).slice(-2) }}
-      a.button.is-large.placeholder(v-for='n in 16')
+      #days
+        a.button.is-large.is-outlined(v-for='n in book.count', @click='toggle(n)',
+          :class='list.includes(n) && `is-primary`') {{ '00'.concat(n).slice(-2) }}
+        a.button.is-large.placeholder(v-for='n in 16')
 
-    #words(v-show='started') Hello, world!
+    #learning(v-show='started')
+      progress.progress(value='0', :max='words.length') {{ 0 / words.length }}%
+
+      .heading
+        h1.title {{ word.id }}
+        h2.subtitle
+          span.icon(v-for='n in 3'): i.fa(:class='n > word.level ? `fa-star-o` : `fa-star`')
+          span.day on day {{ word.day }}
+
+        nav.level.is-mobile
+          .level-item.is-narrow: a.button &lt;
+          .level-item.is-narrow: a.button.is-primary Show
+          .level-item.is-narrow: a.button &gt;
 </template>
 
 <script>
@@ -26,7 +40,16 @@
 
   export default {
     name: 'learn',
-    data: () => ({ book: {}, list: [], started: false }),
+
+    data: () => ({
+      book: {},
+      list: [],
+      started: false,
+
+      word: {},
+      words: [],
+      wordIterator: null
+    }),
 
     async created () {
       const book = this.$route.params.book
@@ -38,6 +61,7 @@
 
       toggle (n) {
         const i = this.list.indexOf(n);
+
         (i < 0) ? this.list.push(n) : this.list.splice(i, 1)
       },
 
@@ -51,7 +75,19 @@
         this.list = chance.unique(chance.integer, 4, range)
       },
 
-      start () {
+      async start () {
+        this.list.sort((a, b) => a - b)
+
+        const getter = n => axios.get(`/learn/${this.book.id}/${n}`)
+        const days = await Promise.all(this.list.map(getter))
+
+        this.words = [].concat(...days
+          .map(({ data }) => data)
+          .map(({ id, words }) => words.map(word => ({ day: id, ...word }))))
+
+        this.wordIterator = this.words[Symbol.iterator]()
+        this.word = this.wordIterator.next().value
+
         this.started = true
       }
     }
@@ -59,7 +95,7 @@
 </script>
 
 <style lang="sass" scoped>
-  .heading, #days
+  #bookTitle, #days
     margin-bottom: 1.6rem
 
   nav.level
@@ -82,4 +118,16 @@
     &.placeholder
       height: 0
       visibility: hidden
+
+  #learning
+    .subtitle
+      span
+        &.icon
+          width: unset
+          height: unset
+          font-size: unset
+          line-height: 1.45rem
+
+        &.day
+          margin-left: 0.8rem
 </style>
