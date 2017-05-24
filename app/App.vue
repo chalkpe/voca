@@ -8,6 +8,7 @@
 
 <script>
   import './app.sass'
+
   import 'lato-webfont'
   import 'typeface-nanum-barun-gothic'
   import 'font-awesome/scss/font-awesome.scss'
