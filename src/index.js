@@ -6,6 +6,7 @@ import serve from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 import conditional from 'koa-conditional-get'
 
+import boom from './boom'
 import routes from './routes'
 import logger from './logger'
 import * as config from '../config'
@@ -29,6 +30,7 @@ function startApp () {
     .use(conditional())
     .use(etag())
     .use(bodyParser())
+    .use(boom())
     .use(routes())
     .use(serve(dist, { maxage: 1000 * 60 * 30 }))
 
