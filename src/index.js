@@ -5,10 +5,10 @@ import etag from 'koa-etag'
 import serve from 'koa-static'
 import bodyParser from 'koa-bodyparser'
 import conditional from 'koa-conditional-get'
+import logger from 'koa-chalk-logger'
 
 import boom from './boom'
 import routes from './routes'
-import logger from './logger'
 import * as config from '../config'
 
 import mongoose from 'mongoose'
