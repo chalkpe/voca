@@ -1,24 +1,37 @@
 <template lang="pug">
-  nav.nav.has-shadow: .container
-    .nav-left
-      router-link.nav-item.is-tab.is-hidden-mobile(
-        v-for='link in links', active-class='is-active',
-        :key='link.url', :exact='link.exact', :to='link.url') {{ link.name }}
+  .container: nav.navbar
+    .navbar-brand
+      router-link.navbar-item(to='/', exact) {{ title }}
+      .navbar-burger(:class='open', @click='toggleNavbar')
+        span
+        span
+        span
+
+    .navbar-menu(:class='open')
+      .navbar-start
+        router-link.navbar-item(v-for='l in links', :key='l', :to='l') {{ l.slice(1) }}
+    .nav-right
 </template>
 
 <script>
-  import * as config from '../../config'
-  const exact = true
-
   export default {
-    name: 'navigation',
+    props: ['title'],
+
     data: () => ({
-      links: [
-        { url: '/', name: config.TITLE, exact },
-        { url: '/learn', name: 'Learn' },
-        { url: '/exam', name: 'Exam' },
-        { url: '/ranks', name: 'Ranks' }
-      ]
-    })
+      open: false,
+      links: ['/learn', '/exam', '/ranks']
+    }),
+
+    methods: {
+      toggleNavbar () {
+        this.open = this.open ? false : 'is-active'
+      }
+    }
   }
 </script>
+
+<style lang="scss" scoped>
+  .navbar-menu .navbar-item {
+    text-transform: capitalize;
+  }
+</style>

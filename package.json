@@ -28,7 +28,7 @@
     "axios": "^0.16.0",
     "babel-polyfill": "^6.23.0",
     "boom": "^5.1.0",
-    "bulma": "^0.3.2",
+    "bulma": "^0.4.3",
     "chance": "^1.0.6",
     "dimigo": "^1.0.2",
     "font-awesome": "^4.7.0",

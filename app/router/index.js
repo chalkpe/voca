@@ -9,9 +9,9 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
   routes: [
-    { path: '/', component: Main },
-    { path: '/learn', component: Books },
-    { path: '/learn/:book', component: Learn }
+    { path: '/', name: 'Main', component: Main },
+    { path: '/learn', name: 'Books', component: Books },
+    { path: '/learn/:book', name: 'Learn', component: Learn }
   ]
 })
 
