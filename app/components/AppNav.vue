@@ -8,6 +8,18 @@
 
       v-list
         v-list-tile
+          v-list-tile-action: v-icon people
+          v-list-tile-content
+            v-list-tile-title New group
+        v-list-tile
+          v-list-tile-action: v-icon lock
+          v-list-tile-content
+            v-list-tile-title New secret chat
+        v-divider
+        v-list-tile
+          v-list-tile-action: v-icon settings
+          v-list-tile-content
+            v-list-tile-title Settings
 
     v-toolbar.primary(v-if='token', dark)
       v-toolbar-side-icon(@click.native.stop='drawer = !drawer')
