@@ -1,8 +1,13 @@
 <template lang="pug">
-  .columns: .column.is-one-quarter(v-for='book in books')
-    router-link(:to='"/learn/" + book.id'): .card
-      .card-header: p.card-header-title {{ book.name }}
-      .card-image: img(:src='book.image')
+  v-list(two-line)
+    v-subheader(inset) Available books
+    template(v-for='(book, i) in books')
+      v-divider(v-if='i > 0', inset)
+      v-list-tile(avatar, :key='book.id')
+        v-list-tile-avatar: img(:src='book.image')
+        v-list-tile-content
+          v-list-tile-title {{ book.name }}
+          v-list-tile-sub-title {{ book.count }} days &ndash; {{ book.totalWords }} words
 </template>
 
 <script>

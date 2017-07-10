@@ -1,39 +1,31 @@
 <template lang="pug">
-  #app
+  v-app#app
     app-nav(:title='TITLE')
-    app-hero
-
-    section.section
-      main.container: router-view
-
-    app-footer
+    main: router-view
 </template>
 
 <script>
-  import './app.sass'
-
-  import 'lato-webfont'
-  import 'typeface-nanum-barun-gothic'
-  import 'font-awesome/scss/font-awesome.scss'
+  import 'noto-sans-kr'
+  import * as config from '../config'
 
   import AppNav from './components/AppNav.vue'
-  import AppHero from './components/AppHero.vue'
   import AppFooter from './components/AppFooter.vue'
-
-  import * as config from '../config'
 
   export default {
     data: () => config,
-    components: { AppNav, AppHero, AppFooter }
+    components: { AppNav, AppFooter }
   }
 </script>
 
-<style lang="sass" scoped>
-  #app
-    display: flex
-    min-height: 100vh
-    flex-direction: column
+<style lang="sass">
+  @import '~vuetify/dist/vuetify.min.css'
 
-  section.section
-    flex: 1 0 auto
+  *:focus
+    outline: none
+
+  #app
+    background-color: #fff
+
+  body, .md-tooltip
+    font-family: Roboto, "Noto Sans", Noto, 'Noto Sans Korean', sans-serif !important
 </style>

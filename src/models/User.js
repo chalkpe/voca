@@ -16,7 +16,9 @@ const schema = mongoose.Schema({
   username: { type: String, unique: true },
 
   name: String,
-  serial: String
+  serial: String,
+  userType: String,
+  facePhoto: String
 })
 
 const TheError = (message, statusCode = 400) => {
@@ -36,12 +38,12 @@ schema.statics.authenticate = async function ({ username, password }) {
   let user = await this.findOne({ id, username })
 
   if (!user) {
-    const { serial } = await dimigo.getStudent(username)
-    user = new this({ id, username, name, serial })
+    const { serial, facePhoto } = await dimigo.getStudent(username)
+    user = new this({ id, username, name, userType, serial, facePhoto })
   }
 
   await user.save()
-  return await jwt.sign({ username, serial: user.serial }, secret.JWT_SECRET)
+  return { token: await jwt.sign({ username, serial: user.serial }, secret.JWT_SECRET) }
 }
 
 export default mongoose.model('User', schema)

@@ -1,17 +1,7 @@
 <template lang="pug">
-  .heading
-    .title 뉴-디미보카
-    .subtitle
-      | 사실 작년 말에&nbsp;
-      a(href='http://chalk.pe/legacy-voca') 이미 다 만들었는데
-      | &nbsp;지금 보니까 옛날 코드가 너무 끔찍해서
-      | 처음부터 다시 시작했어요.
-      br
-      | 아직 내용은 얼마 없지만...&nbsp;
-      a(href='http://chalk.pe/voca') chalk.pe/voca
-      | 에서 모든 소스코드를 공개하고 있어요. 라이선스는&nbsp;
-      a(href='https://chalk.pe/voca/blob/master/LICENSE') 여기
-      | 에서 확인하세요!
+  v-container
+    v-layout(row)
+      v-flex(xs16): v-text-field(name='username', label='Username', prepend-icon='person')
 </template>
 
 <script>
