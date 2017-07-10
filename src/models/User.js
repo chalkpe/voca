@@ -43,7 +43,7 @@ schema.statics.authenticate = async function ({ username, password }) {
   }
 
   await user.save()
-  return { token: await jwt.sign({ username, serial: user.serial }, secret.JWT_SECRET) }
+  return { token: await jwt.sign(user.toJSON(), secret.JWT_SECRET) }
 }
 
 export default mongoose.model('User', schema)

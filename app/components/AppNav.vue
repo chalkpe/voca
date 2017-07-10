@@ -1,14 +1,12 @@
 <template lang="pug">
   #nav
-    v-navigation-drawer(v-model='drawer', :mini-variant.sync='mini', clipped, persistent, absolute)
+    v-navigation-drawer(v-model='drawer', persistent, overflow)
       v-list
         v-list-tile(avatar)
           v-list-tile-avatar
+            img(:src='user.facePhoto')
           v-list-tile-content
-            v-list-tile-title {{ username }}
-          v-list-tile-action
-            v-btn(icon, @click.native.stop='mini = !mini')
-              v-icon chevron_left
+            v-list-tile-title {{ user.name }}
 
     v-toolbar.primary(dark, v-if='token')
       v-toolbar-side-icon(@click.native.stop='drawer = !drawer')
@@ -17,18 +15,17 @@
       router-link(v-for='link of links', :key='link.path', :to='link.path')
         v-btn(icon, v-tooltip:left='{ html: link.name }'): v-icon {{ link.icon }}
 
-    v-toolbar.primary(v-else, extended)
-      v-container.sign-in: v-toolbar-title.bottom.white--text Sign in to DIMI VOCA
+    v-toolbar.primary(v-else, extended, dark)
+      v-container.sign-in: v-toolbar-title.bottom Sign in to DIMI VOCA
 </template>
 
 <script>
-  import { mapState } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
 
   export default {
     props: ['title'],
 
     data: () => ({
-      mini: false,
       drawer: false,
 
       links: [
@@ -37,7 +34,10 @@
       ]
     }),
 
-    computed: mapState(['username'])
+    computed: {
+      ...mapState(['token']),
+      ...mapGetters(['user'])
+    }
   }
 </script>
 

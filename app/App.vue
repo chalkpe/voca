@@ -2,14 +2,23 @@
   v-app#app
     app-nav(:title='TITLE')
     main: router-view
+    v-footer
+      v-spacer
+      .grey--text &copy; 2017 ChalkPE
 </template>
 
 <script>
+  import Vue from 'vue'
+  import Vuetify from 'vuetify'
+
+  import './app.sass'
   import 'noto-sans-kr'
   import * as config from '../config'
 
   import AppNav from './components/AppNav.vue'
   import AppFooter from './components/AppFooter.vue'
+
+  Vue.use(Vuetify)
 
   export default {
     data: () => config,
@@ -17,15 +26,14 @@
   }
 </script>
 
-<style lang="sass">
-  @import '~vuetify/dist/vuetify.min.css'
+<style lang="scss" scoped>
+  #app {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
 
-  *:focus
-    outline: none
-
-  #app
-    background-color: #fff
-
-  body, .md-tooltip
-    font-family: Roboto, "Noto Sans", Noto, 'Noto Sans Korean', sans-serif !important
+  main {
+    flex: 1 0 auto;
+  }
 </style>

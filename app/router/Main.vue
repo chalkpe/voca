@@ -1,11 +1,18 @@
 <template lang="pug">
-  v-container
-    v-layout(row)
-      v-flex(xs16): v-text-field(name='username', label='Username', prepend-icon='person')
+  auth(v-if='!token')
+  v-container(v-else)
+    div Hello, {{ user.name }}!
 </template>
 
 <script>
+  import Auth from './Auth.vue'
+  import { mapState, mapGetters } from 'vuex'
+
   export default {
-    // TODO: Implement component
+    components: { Auth },
+    computed: {
+      ...mapState(['token']),
+      ...mapGetters(['user'])
+    }
   }
 </script>
