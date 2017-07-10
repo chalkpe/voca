@@ -1,14 +1,15 @@
 <template lang="pug">
   #nav
     v-navigation-drawer(v-model='drawer', persistent, overflow)
-      v-list
-        v-list-tile(avatar)
-          v-list-tile-avatar
-            img(:src='user.facePhoto')
-          v-list-tile-content
-            v-list-tile-title {{ user.name }}
+      v-container.primary.white--text
+        img.big(:src='user.facePhoto')
+        .subheading {{ user.serial }} {{ user.name }}
+        .stat {{ user.email }}
 
-    v-toolbar.primary(dark, v-if='token')
+      v-list
+        v-list-tile
+
+    v-toolbar.primary(v-if='token', dark)
       v-toolbar-side-icon(@click.native.stop='drawer = !drawer')
       router-link(to='/'): v-toolbar-title.white--text {{ title }}
       v-spacer
@@ -50,5 +51,13 @@
       bottom: 18px;
       margin-left: 0px;
     }
+  }
+
+  .big {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    margin-bottom: 1.5em;
+    display: block;
   }
 </style>

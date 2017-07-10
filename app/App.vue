@@ -12,7 +12,9 @@
   import Vuetify from 'vuetify'
 
   import './app.sass'
-  import 'noto-sans-kr'
+  import './app.styl'
+
+  import 'typeface-nanum-barun-gothic'
   import * as config from '../config'
 
   import AppNav from './components/AppNav.vue'

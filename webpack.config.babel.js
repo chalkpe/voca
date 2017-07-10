@@ -18,6 +18,10 @@ const vueLoaders = {
   sass: ExtractTextPlugin.extract({
     fallback: 'vue-style-loader',
     use: ['css-loader', 'sass-loader?indentedSyntax']
+  }),
+  stylus: ExtractTextPlugin.extract({
+    fallback: 'vue-style-loader',
+    use: ['css-loader', 'stylus-loader']
   })
 }
 
@@ -47,6 +51,11 @@ export default {
         test: /\.s[a|c]ss$/,
         use: ExtractTextPlugin.extract({
           use: ['css-loader', 'sass-loader'], fallback: 'style-loader'
+        })
+      }, {
+        test: /\.styl$/,
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader', 'stylus-loader'], fallback: 'style-loader'
         })
       }, {
         test: /\.pug$/,

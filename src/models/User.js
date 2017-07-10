@@ -16,6 +16,7 @@ const schema = mongoose.Schema({
   username: { type: String, unique: true },
 
   name: String,
+  email: String,
   serial: String,
   userType: String,
   facePhoto: String
@@ -32,14 +33,14 @@ schema.statics.authenticate = async function ({ username, password }) {
   if (!username) throw TheError('username field is required', 400)
   if (!password) throw TheError('password field is required', 400)
 
-  const { id, name, userType } = await dimigo.identifyUser(username, password)
+  const { id, name, email, userType } = await dimigo.identifyUser(username, password)
 
   if (userType !== 'S') throw TheError('not a student', 401)
   let user = await this.findOne({ id, username })
 
   if (!user) {
     const { serial, facePhoto } = await dimigo.getStudent(username)
-    user = new this({ id, username, name, userType, serial, facePhoto })
+    user = new this({ id, username, name, email, userType, serial, facePhoto })
   }
 
   await user.save()
