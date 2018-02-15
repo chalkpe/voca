@@ -27,11 +27,11 @@
   "dependencies": {
     "axios": "^0.16.0",
     "babel-polyfill": "^6.23.0",
-    "boom": "^5.1.0",
+    "boom": "^6.0.0",
     "chance": "^1.0.6",
     "dimigo": "^1.0.2",
     "font-awesome": "^4.7.0",
-    "jsonwebtoken": "^7.3.0",
+    "jsonwebtoken": "^8.0.0",
     "jwt-decode": "^2.2.0",
     "koa": "^2.0.1",
     "koa-bodyparser": "^4.1.0",
