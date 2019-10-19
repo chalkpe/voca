@@ -41,7 +41,7 @@
     "koa-etag": "^3.0.0",
     "koa-router": "^7.2.1",
     "koa-static": "^3.0.0",
-    "mongoose": "^4.13.17",
+    "mongoose": "^5.4.10",
     "typeface-nanum-barun-gothic": "^1.0.0",
     "vue": "^2.5.17",
     "vue-material": "^0.7.4",
